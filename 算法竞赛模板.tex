@@ -260,6 +260,17 @@ x \equiv (r + \omega)^{\frac{p+1}{2}} \pmod{p}
 
 \CppInput{code/graph/dfs_order_lca.cpp}
 
+\subsection{Floyd 最短路}
+
+求任意两点间的最短距离，支持负边权，要求图中无负环。
+传入下标从 $0$ 开始的 $n \times n$ 距离矩阵，对角线置 $0$，无边处置 \texttt{INF}，
+重边取最小权值。无向边需填写两个方向。
+设最大边权绝对值为 $W$，要求 $nW < 2^{60}$。
+调用 \texttt{floyd(dist)} 后，不可达的点对仍为 \texttt{INF}。
+时间 $O(n^3)$，距离矩阵占用 $O(n^2)$ 空间。
+
+\CppInput{code/graph/floyd.cpp}
+
 \section{字符串}
 
 \subsection{KMP}
@@ -297,6 +308,15 @@ x \equiv (r + \omega)^{\frac{p+1}{2}} \pmod{p}
 例如对 $\{3,1,2\}$ 取 $k=2$，得到最大值 $\{3,2\}$、最小值 $\{1,1\}$。复杂度 $O(n)$。
 
 \CppInput{code/data_structure/monotonic_queue.cpp}
+
+\subsection{树状数组}
+
+\texttt{Fenwick bit(n)} 将 $n$ 个元素初始化为 $0$，下标从 $1$ 开始。
+\texttt{add(x, d)} 给单点加 $d$，\texttt{sum(x)} 求前缀和（\texttt{sum(0)} 为 $0$），
+\texttt{query(l, r)} 求闭区间和。各操作均为 $O(\log n)$，空间 $O(n)$。
+加法及求和的中间结果需在 \texttt{long long} 范围内。
+
+\CppInput{code/data_structure/fenwick_tree.cpp}
 
 \section{动态规划}
 
