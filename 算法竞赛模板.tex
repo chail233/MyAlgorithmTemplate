@@ -45,7 +45,7 @@
     afterskip=.3ex
   }
 }
-\newcommand{\CodeFont}{\fontsize{9.4pt}{10.4pt}\selectfont}
+\newcommand{\CodeFont}{\fontsize{9.4pt}{10.2pt}\selectfont}
 \newcommand{\CppInput}[1]{%
   \VerbatimInput[
     fontsize=\CodeFont,
@@ -214,6 +214,14 @@ x \equiv (r + \omega)^{\frac{p+1}{2}} \pmod{p}
 
 \CppInput{code/number_theory/xor_linear_basis.cpp}
 
+\subsection{组合数}
+
+在素数模 $p$ 下，预处理 $0$ 到 $N$ 的阶乘与逆阶乘，要求 $N < p$。
+例如 \texttt{Combination comb(100);} 后，\texttt{comb.C(5, 2)} 为 $10$。
+预处理 $O(N+\log p)$，每次查询 $O(1)$。
+
+\CppInput{code/number_theory/combination.cpp}
+
 \section{图论}
 
 \subsection{Tarjan}
@@ -258,6 +266,14 @@ x \equiv (r + \omega)^{\frac{p+1}{2}} \pmod{p}
 
 \CppInput{code/string/kmp.cpp}
 
+\subsection{Trie}
+
+支持小写英文字母，可统计完整字符串和前缀的出现次数。
+例如插入 \texttt{ab} 和 \texttt{abc} 后，\texttt{count("ab")} 为 $1$，
+\texttt{count\_prefix("ab")} 为 $2$。单次操作为 $O(|s|)$。
+
+\CppInput{code/string/trie.cpp}
+
 \section{数据结构}
 
 \subsection{线段树}
@@ -267,5 +283,38 @@ x \equiv (r + \omega)^{\frac{p+1}{2}} \pmod{p}
 \subsection{左偏树可并堆（小根堆）}
 
 \CppInput{code/data_structure/leftist_heap.cpp}
+
+\subsection{单调栈}
+
+求每个位置两侧最近的严格更小元素下标，下标从 $0$ 开始，不存在时为 $-1$。
+两处弹栈条件的 \texttt{>=} 改为 \texttt{<=}，即可求严格更大的元素。复杂度 $O(n)$。
+
+\CppInput{code/data_structure/monotonic_stack.cpp}
+
+\subsection{单调队列}
+
+求每个长度为 $k$ 的窗口的最值，默认求最大值。传入 \texttt{false} 求最小值。
+例如对 $\{3,1,2\}$ 取 $k=2$，得到最大值 $\{3,2\}$、最小值 $\{1,1\}$。复杂度 $O(n)$。
+
+\CppInput{code/data_structure/monotonic_queue.cpp}
+
+\section{动态规划}
+
+\subsection{最长上升子序列}
+
+用二分维护各长度子序列的最小末尾，通过前驱下标恢复一组严格上升子序列。
+例如 $\{3,1,1,2\}$ 可得到 $\{1,2\}$。时间 $O(n\log n)$，额外空间 $O(n)$。
+
+\CppInput{code/dynamic_programming/lis.cpp}
+
+\section{线性代数}
+
+\subsection{高斯消元}
+
+求解 $n$ 个方程、$m$ 个未知数的实数线性方程组。传入 $n \times (m+1)$ 的增广矩阵，
+在每列选取绝对值最大的主元，以 $10^{-9}$ 为判零阈值。返回值 $0$、$1$、$2$ 分别表示唯一解、无穷多解、无解。
+有多解时，返回自由变量取零的一组解。时间 $O(nm\min(n,m))$。
+
+\CppInput{code/linear_algebra/gaussian_elimination.cpp}
 
 \end{document}
